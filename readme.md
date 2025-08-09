@@ -2,6 +2,9 @@
 
 An AI system that analyzes user career profiles and job postings to provide matching scores and detailed feedback.
 
+## 🚀 Live Demo
+[**Try it now on Streamlit Cloud**](https://03user-job-matcher-mcp.streamlit.app/)
+
 ## 🚀 Key Features
 
 - **Profile Management**: Save and load user career information (JSON format)
