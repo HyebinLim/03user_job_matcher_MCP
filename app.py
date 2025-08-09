@@ -81,14 +81,7 @@ if CONFIG_API_KEY:
     # 간단한 안내 메시지
     st.markdown("<div style='font-size: 12px; color: #666;'>💡 You can also insert your API key in [api.py]</div>", unsafe_allow_html=True)
 else:
-    st.markdown("""
-    <div style='font-size: 14px; margin-bottom: 10px;'>
-    To get AI-powered feedback, you have two options:<br>
-    1. <strong>Create api.py file</strong> (Recommended): Create your own API configuration file<br>
-    2. <strong>Enter manually</strong>: Input your API key below<br>
-    <a href="https://platform.openai.com/api-keys" target="_blank">Get your API key here</a>
-    </div>
-    """, unsafe_allow_html=True)
+
 
     # Manual API key input fallback
     if 'openai_api_key' not in st.session_state:
@@ -112,7 +105,7 @@ else:
     
     # API 파일 설정 안내
     if not st.session_state.get('openai_api_key'):
-        with st.expander("🔧 How to create api.py file (Recommended)"):
+        with st.expander("or... How to create api.py file"):
             st.markdown("""
             1. Edit `api.py` file and replace the placeholder with your actual key
             2. Restart the application
