@@ -21,13 +21,13 @@ An AI system that analyzes user career profiles and job postings to provide matc
 
 ## 📖 Usage
 
-### 1. Profile Setup
+#### 1. Profile Setup
 - Create and save your career profile with skills, experience, and preferences.
 
-### 2. Job Analysis
+#### 2. Job Analysis
 - Paste job posting text and click analyze for automatic matching.
 
-### 3. View Results
+#### 3. View Results
 - See matching scores and AI-powered feedback with improvement suggestions.
 
 ## 🔧 Technology Stack
