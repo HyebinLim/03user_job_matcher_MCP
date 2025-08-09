@@ -2,8 +2,8 @@
 
 An AI system that analyzes user career profiles and job postings to provide matching scores and detailed feedback.
 
-## 🚀 MVP Demo
-[**Try it now on Streamlit Cloud**](https://hyebinlim-03user-job-matcher-mcp-app-5lmwxh.streamlit.app/)
+## ❇️ MVP Demo
+[**Try it now**](https://hyebinlim-03user-job-matcher-mcp-app-5lmwxh.streamlit.app/)
 
 ## 🚀 Key Features
 
