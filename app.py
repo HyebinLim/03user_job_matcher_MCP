@@ -114,24 +114,8 @@ else:
     if not st.session_state.get('openai_api_key'):
         with st.expander("🔧 How to create api.py file (Recommended)"):
             st.markdown("""
-            **For easier API key management, follow these steps:**
-            
-            1. Create a new file called `api.py` in the project folder
-            2. Add your API key to the file as shown below
-            3. Restart the application
-            
-            **Benefits:**
-            - No need to enter API key every time
-            - More secure (not visible in UI)
-            - Better for deployment
-            
-            **Create api.py with this content:**
-            ```python
-            # Your OpenAI API Key
-            OPENAI_API_KEY = "sk-proj-your_actual_api_key_here"
-            ```
-            
-            ⚠️ **Important**: The `api.py` file is excluded from Git, so your key stays private!
+            1. Edit `api.py` file and replace the placeholder with your actual key
+            2. Restart the application
             """)
 
 # 현재 사용 중인 API 키 확인
