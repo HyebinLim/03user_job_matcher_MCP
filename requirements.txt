@@ -3,4 +3,6 @@ openai
 numpy
 pandas
 scikit-learn
-sentence-transformers 
+sentence-transformers
+beautifulsoup4
+requests 
