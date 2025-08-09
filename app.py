@@ -23,10 +23,19 @@ except ImportError:
 if not CONFIG_API_KEY:
     try:
         from api import OPENAI_API_KEY
-        if OPENAI_API_KEY and OPENAI_API_KEY != "여기에_본인의_API_키를_입력하세요":
+        if OPENAI_API_KEY and OPENAI_API_KEY != "sk-proj-your_actual_api_key_here":
             CONFIG_API_KEY = OPENAI_API_KEY
             API_KEY_SOURCE = "api.py (User)"
     except ImportError:
+        pass
+
+# 3. Streamlit secrets 확인 (배포 환경용)
+if not CONFIG_API_KEY:
+    try:
+        if "OPENAI_API_KEY" in st.secrets:
+            CONFIG_API_KEY = st.secrets["OPENAI_API_KEY"]
+            API_KEY_SOURCE = "Streamlit Secrets"
+    except Exception:
         pass
 
 # Page configuration

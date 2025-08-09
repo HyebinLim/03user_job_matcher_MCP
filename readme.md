@@ -12,25 +12,9 @@ An AI system that analyzes user career profiles and job postings to provide matc
 
 ## 🛠️ API Setup
 
-You have two options to configure your OpenAI API key:
-
-#### Option 1: Create api.py file (Recommended)
-- Edit the `api.py` file and replace the placeholder with your actual API key
-- Restart the Streamlit app
-
-#### Option 2: Manual Input in Web Interface
-- Enter your API key directly in the application interface when prompted
-
-⚠️ **Warning**: Other configuration methods (environment variables, config files) are not supported.
-
-#### Getting an API Key
-1. Visit [OpenAI API Keys](https://platform.openai.com/api-keys)
-2. Create new secret key and copy it
-
-### Run Application
-```bash
-streamlit run app.py
-```
+1. Get your OpenAI API key from [platform.openai.com/api-keys](https://platform.openai.com/api-keys)
+2. Edit `api.py` file and replace the placeholder with your actual key
+3. Run: `streamlit run app.py`
 
 ## 📖 Usage
 
@@ -62,14 +46,6 @@ Enhanced keyword matching with semantic similarity analysis and AI-powered feedb
 - User profiles stored locally as JSON files
 - API keys managed via `api.py` file (excluded from Git)
 - No data sent to external servers except OpenAI API for feedback generation
-
-## 🚧 Future Improvements
-
-- [ ] User login system
-- [ ] Resume upload functionality
-- [ ] Recommended job posting list
-- [ ] Company information search integration
-- [ ] Support for more languages
 
 ---
 **Project maintained by Hyebin Lim**
