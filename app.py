@@ -88,7 +88,7 @@ else:
         st.session_state.openai_api_key = ""
 
     api_key = st.text_input(
-        "OpenAI API Key (Manual Input)",
+        "Your OpenAI API key",
         value=st.session_state.openai_api_key,
         type="password",
         placeholder="sk-...",
@@ -105,7 +105,7 @@ else:
     
     # API 파일 설정 안내
     if not st.session_state.get('openai_api_key'):
-        with st.expander("or... How to create api.py file"):
+        with st.expander("or... you can insert your key in api.py"):
             st.markdown("""
             1. Edit `api.py` file and replace the placeholder with your actual key
             2. Restart the application
