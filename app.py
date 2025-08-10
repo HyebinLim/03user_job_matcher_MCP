@@ -92,7 +92,8 @@ else:
         value=st.session_state.openai_api_key,
         type="password",
         placeholder="sk-...",
-        help="Your OpenAI API key will be stored in session and used for AI feedback generation"
+        help="Your OpenAI API key will be stored in session and used for AI feedback generation",
+        key="openai_api_key_input"
     )
 
     # Save API key to session state
@@ -126,64 +127,69 @@ if not saved_contexts and not st.session_state.get('has_profile', False):
     st.info("Welcome! Please answer a few questions to create your profile.")
     
     with st.form("initial_profile_form"):
-        name = st.text_input("Name")
+        name = st.text_input("Name", key="initial_name")
         
         target_roles_input = st.text_area(
             "Target Roles (separated by commas)",
             placeholder="e.g., NLP Engineer, AI Research Assistant, Data Scientist",
-            height=80
+            height=80,
+            key="initial_target_roles"
         )
         col1, col2, col3 = st.columns(3)
         with col1:
-            current_position = st.text_input("Current Position", placeholder="e.g., AI Research Assistant")
+            current_position = st.text_input("Current Position", placeholder="e.g., AI Research Assistant", key="initial_current_position")
         with col2:
-            current_role = st.text_input("Current Role", placeholder="e.g., NLP Engineer")
+            current_role = st.text_input("Current Role", placeholder="e.g., NLP Engineer", key="initial_current_role")
         with col3:
-            current_company = st.text_input("Current Company", placeholder="e.g., Tech University")
+            current_company = st.text_input("Current Company", placeholder="e.g., Tech University", key="initial_current_company")
         
-        salary_expectation = st.text_input("Salary Expectation", placeholder="e.g., 80M-120M KRW")
+        salary_expectation = st.text_input("Salary Expectation", placeholder="e.g., 80M-120M KRW", key="initial_salary")
         
         skills_input = st.text_area(
             "Key Skills (separated by commas)",
             placeholder="e.g., Python, Transformers, PyTorch, NLP, Deep Learning",
-            height=80
+            height=80,
+            key="initial_skills"
         )
         
         programming_languages_input = st.text_area(
             "Programming Languages (separated by commas)",
             placeholder="e.g., Python, JavaScript, SQL, R, Java, C++",
-            height=80
+            height=80,
+            key="initial_programming_languages"
         )
         col1, col2 = st.columns(2)
         with col1:
-            korean_level = st.selectbox("Korean Level", ["Native", "Fluent", "Intermediate", "Basic"])
+            korean_level = st.selectbox("Korean Level", ["Native", "Fluent", "Intermediate", "Basic"], key="initial_korean_level")
         with col2:
-            english_level = st.selectbox("English Level", ["Native", "Fluent", "Intermediate", "Basic"])
+            english_level = st.selectbox("English Level", ["Native", "Fluent", "Intermediate", "Basic"], key="initial_english_level")
         
         col1, col2 = st.columns(2)
         with col1:
-            education_level = st.selectbox("Highest Degree", ["High School", "Associate's", "Bachelor's", "Master's", "PhD", "Other"])
+            education_level = st.selectbox("Highest Degree", ["High School", "Associate's", "Bachelor's", "Master's", "PhD", "Other"], key="initial_education_level")
         with col2:
-            university = st.text_input("University", placeholder="e.g., Seoul National University")
+            university = st.text_input("University", placeholder="e.g., Seoul National University", key="initial_university")
         
-        major = st.text_input("Major", placeholder="e.g., Computer Science")
+        major = st.text_input("Major", placeholder="e.g., Computer Science", key="initial_major")
         
         col1, col2 = st.columns(2)
         with col1:
-            experience_years = st.number_input("Experience Years", min_value=0, max_value=50, value=0)
+            experience_years = st.number_input("Experience Years", min_value=0, max_value=50, value=0, key="initial_experience_years")
         with col2:
-            experience_months = st.number_input("Experience Months", min_value=0, max_value=11, value=0)
+            experience_months = st.number_input("Experience Months", min_value=0, max_value=11, value=0, key="initial_experience_months")
         
         work_preference = st.multiselect(
             "Work Preference",
             ["Remote", "Hybrid", "On-site"],
-            default=["Remote", "Hybrid"]
+            default=["Remote", "Hybrid"],
+            key="initial_work_preference"
         )
         
         additional_notes = st.text_area(
             "Additional Notes (optional)",
             placeholder="e.g., Special achievements, interests, career goals, etc.",
-            height=100
+            height=100,
+            key="initial_additional_notes"
         )
         
         if st.form_submit_button("Create Profile", type="primary"):
@@ -369,34 +375,37 @@ if st.session_state.get('create_profile', False) or st.session_state.get('edit_p
         st.session_state.user_locations = editing_profile.location_preference.copy() if editing_profile.location_preference else []
     
     # Basic information input
-    name = st.text_input("Name", value=editing_profile.name if editing_profile else "")
+    name = st.text_input("Name", value=editing_profile.name if editing_profile else "", key="profile_name")
     col1, col2, col3 = st.columns(3)
     with col1:
-        current_position = st.text_input("Current Position", value=editing_profile.current_position if editing_profile else "", placeholder="e.g., AI Research Assistant")
+        current_position = st.text_input("Current Position", value=editing_profile.current_position if editing_profile else "", placeholder="e.g., AI Research Assistant", key="profile_current_position")
     with col2:
-        current_role = st.text_input("Current Role", value=editing_profile.current_role if editing_profile and hasattr(editing_profile, 'current_role') else "", placeholder="e.g., NLP Engineer")
+        current_role = st.text_input("Current Role", value=editing_profile.current_role if editing_profile and hasattr(editing_profile, 'current_role') else "", placeholder="e.g., NLP Engineer", key="profile_current_role")
     with col3:
-        current_company = st.text_input("Current Company", value=editing_profile.current_company if editing_profile else "", placeholder="e.g., Tech University")
+        current_company = st.text_input("Current Company", value=editing_profile.current_company if editing_profile else "", placeholder="e.g., Tech University", key="profile_current_company")
     
     
-    salary_expectation = st.text_input("Salary Expectation", value=editing_profile.salary_expectation if editing_profile else "", placeholder="e.g., 80M-120M KRW")
+    salary_expectation = st.text_input("Salary Expectation", value=editing_profile.salary_expectation if editing_profile else "", placeholder="e.g., 80M-120M KRW", key="profile_salary")
     
     target_roles_input = st.text_area(
         "Target Roles (separated by commas)",
         value=", ".join(editing_profile.target_roles) if editing_profile else "",
-        height=80
+        height=80,
+        key="profile_target_roles"
     )
     
     skills_input = st.text_area(
         "Skills (separated by commas)",
         value=", ".join(editing_profile.skills) if editing_profile else "",
-        height=80
+        height=80,
+        key="profile_skills"
     )
     
     programming_languages_input = st.text_area(
         "Programming Languages (separated by commas)",
         value=", ".join(editing_profile.programming_languages) if editing_profile else "",
-        height=80
+        height=80,
+        key="profile_programming_languages"
     )
 
     
@@ -404,11 +413,11 @@ if st.session_state.get('create_profile', False) or st.session_state.get('edit_p
     # Language addition feature
     col1, col2, col3 = st.columns([2, 2, 1])
     with col1:
-        new_language = st.selectbox("Language Proficiency", ["Korean", "English", "Japanese", "Chinese", "German", "French", "Spanish", "Other"])
+        new_language = st.selectbox("Language Proficiency", ["Korean", "English", "Japanese", "Chinese", "German", "French", "Spanish", "Other"], key="profile_new_language")
     with col2:
-        language_level = st.selectbox("Level", ["Native", "Fluent", "Intermediate", "Basic"])
+        language_level = st.selectbox("Level", ["Native", "Fluent", "Intermediate", "Basic"], key="profile_language_level")
     with col3:
-        if st.button("Add Language", use_container_width=True):
+        if st.button("Add Language", use_container_width=True, key="profile_add_language"):
             if 'user_languages' not in st.session_state:
                 st.session_state.user_languages = {}
             if new_language not in st.session_state.user_languages:
@@ -431,11 +440,11 @@ if st.session_state.get('create_profile', False) or st.session_state.get('edit_p
     # Education/Major
     col1, col2 = st.columns(2)
     with col1:
-        education_level = st.selectbox("Highest Education", ["High School", "Associate's", "Bachelor's", "Master's", "PhD", "Other"])
+        education_level = st.selectbox("Highest Education", ["High School", "Associate's", "Bachelor's", "Master's", "PhD", "Other"], key="profile_education_level")
     with col2:
-        university = st.text_input("Graduated University", value=editing_profile.university if editing_profile else "", placeholder="e.g., Seoul National University")
+        university = st.text_input("Graduated University", value=editing_profile.university if editing_profile else "", placeholder="e.g., Seoul National University", key="profile_university")
     
-    major = st.text_input("Major", value=editing_profile.major if editing_profile else "", placeholder="e.g., Computer Science")
+    major = st.text_input("Major", value=editing_profile.major if editing_profile else "", placeholder="e.g., Computer Science", key="profile_major")
 
     
     # Experience breakdown (dynamic add/delete) - Updated to include months
@@ -444,15 +453,15 @@ if st.session_state.get('create_profile', False) or st.session_state.get('edit_p
     # Experience addition feature
     col1, col2, col3, col4, col5 = st.columns([2, 2, 1, 1, 1])
     with col1:
-        new_industry = st.text_input("Industry/Field", placeholder="e.g., AI/NLP, Investment Banking, IT")
+        new_industry = st.text_input("Industry/Field", placeholder="e.g., AI/NLP, Investment Banking, IT", key="profile_new_industry")
     with col2:
-        new_role = st.text_input("Role", placeholder="e.g., NLP Engineer, Data Scientist")
+        new_role = st.text_input("Role", placeholder="e.g., NLP Engineer, Data Scientist", key="profile_new_role")
     with col3:
-        industry_years = st.number_input("Years", min_value=0, max_value=50, value=0)
+        industry_years = st.number_input("Years", min_value=0, max_value=50, value=0, key="profile_industry_years")
     with col4:
-        industry_months = st.number_input("Months", min_value=0, max_value=11, value=0)
+        industry_months = st.number_input("Months", min_value=0, max_value=11, value=0, key="profile_industry_months")
     with col5:
-        if st.button("Add Experience", use_container_width=True):
+        if st.button("Add Experience", use_container_width=True, key="profile_add_experience"):
             if new_industry:
                 if 'user_experience' not in st.session_state:
                     st.session_state.user_experience = {}
@@ -480,13 +489,13 @@ if st.session_state.get('create_profile', False) or st.session_state.get('edit_p
     st.markdown("**Project Experience**")
     col1, col2 = st.columns(2)
     with col1:
-        project_name = st.text_input("Project Name", placeholder="e.g., Chatbot Development")
-        project_description = st.text_area("Project Description", placeholder="e.g., Developed AI chatbot system for customer service")
+        project_name = st.text_input("Project Name", placeholder="e.g., Chatbot Development", key="profile_project_name")
+        project_description = st.text_area("Project Description", placeholder="e.g., Developed AI chatbot system for customer service", key="profile_project_description")
     with col2:
-        project_tech = st.text_input("Tech Stack", placeholder="e.g., Python, GPT, FastAPI")
-        project_org = st.text_input("Organization", placeholder="e.g., ABC Startup")
+        project_tech = st.text_input("Tech Stack", placeholder="e.g., Python, GPT, FastAPI", key="profile_project_tech")
+        project_org = st.text_input("Organization", placeholder="e.g., ABC Startup", key="profile_project_org")
     
-    if st.button("Add Project", use_container_width=True):
+    if st.button("Add Project", use_container_width=True, key="profile_add_project"):
         if project_name:
             if 'user_projects' not in st.session_state:
                 st.session_state.user_projects = []
@@ -525,9 +534,9 @@ if st.session_state.get('create_profile', False) or st.session_state.get('edit_p
     # Certification addition feature
     col1, col2 = st.columns([3, 1])
     with col1:
-        cert_name = st.text_input("Certification Name", placeholder="e.g., AWS Certified Solutions Architect")
+        cert_name = st.text_input("Certification Name", placeholder="e.g., AWS Certified Solutions Architect", key="profile_cert_name")
     with col2:
-        if st.button("Add Certification", use_container_width=True):
+        if st.button("Add Certification", use_container_width=True, key="profile_add_cert"):
             if cert_name:
                 if 'user_certifications' not in st.session_state:
                     st.session_state.user_certifications = []
@@ -551,7 +560,8 @@ if st.session_state.get('create_profile', False) or st.session_state.get('edit_p
     preferred_locations_input = st.text_input(
         "Preferred Work Locations (separated by commas)",
         value=", ".join(st.session_state.get('user_locations', [])) if st.session_state.get('user_locations') else "",
-        placeholder="e.g., Seoul, New York, London"
+        placeholder="e.g., Seoul, New York, London",
+        key="profile_preferred_locations"
     )
     
     # Update session state when input changes
@@ -565,7 +575,8 @@ if st.session_state.get('create_profile', False) or st.session_state.get('edit_p
     work_preference = st.multiselect(
         "Work Preference",
         ["Remote", "Hybrid", "On-site"],
-        default=editing_profile.work_preference if editing_profile else ["Remote", "Hybrid"]
+        default=editing_profile.work_preference if editing_profile else ["Remote", "Hybrid"],
+        key="profile_work_preference"
     )
     
 
@@ -575,7 +586,8 @@ if st.session_state.get('create_profile', False) or st.session_state.get('edit_p
         "Additional Notes (optional)",
         value=editing_profile.additional_notes if editing_profile else "",
         placeholder="e.g., Special achievements, interests, career goals, etc.",
-        height=100
+        height=100,
+        key="profile_additional_notes"
     )
     
     # Final save/cancel buttons
@@ -583,7 +595,7 @@ if st.session_state.get('create_profile', False) or st.session_state.get('edit_p
     col1, col2, col3 = st.columns([1, 1, 1])
     
     with col1:
-        if st.button("Save", type="primary", use_container_width=True):
+        if st.button("Save", type="primary", use_container_width=True, key="profile_save"):
             # Process input values
             target_roles = [role.strip() for role in target_roles_input.split(',') if role.strip()]
             skills = [skill.strip() for skill in skills_input.split(',') if skill.strip()]
@@ -627,7 +639,7 @@ if st.session_state.get('create_profile', False) or st.session_state.get('edit_p
                 st.error(f"Error occurred while saving profile: {e}")
     
     with col2:
-        if st.button("Cancel", use_container_width=True):
+        if st.button("Cancel", use_container_width=True, key="profile_cancel"):
             st.session_state.create_profile = False
             st.session_state.edit_profile = False
             st.session_state.editing_profile = None
@@ -637,85 +649,126 @@ if st.session_state.get('create_profile', False) or st.session_state.get('edit_p
                     del st.session_state[key]
             st.rerun()
 
-# URL input
-st.subheader("Job Posting URL")
-url = st.text_input(
-    "Job Posting URL",
-    placeholder="https://example.com/job-posting",
-    label_visibility="collapsed"
+# Input method selection
+st.subheader("Job Posting Analysis")
+input_method = st.radio(
+    "입력 방법 선택",
+    ["🌐 URL 입력", "📝 직접 텍스트 입력"],
+    horizontal=True,
+    help="URL 입력을 먼저 시도해보고, 실패하면 직접 텍스트 입력을 사용하세요."
 )
+
+# URL input
+if input_method == "🌐 URL 입력":
+    url = st.text_input(
+        "Job Posting URL",
+        placeholder="https://example.com/job-posting",
+        label_visibility="collapsed",
+        key="job_url_input"
+    )
+    direct_text = ""
+    job_title_input = ""
+else:
+    # Direct text input option
+    st.markdown("### 📝 직접 텍스트 입력")
+    st.info("💡 **팁**: 채용 공고 내용을 브라우저에서 복사하여 아래에 붙여넣기하세요.")
+    
+    direct_text = st.text_area(
+        "채용 공고 내용을 직접 입력하세요",
+        placeholder="채용 공고의 전체 내용을 여기에 복사하여 붙여넣기하세요...",
+        height=300,
+        help="URL에서 텍스트 추출이 실패하거나 동적 콘텐츠인 경우 이 옵션을 사용하세요.",
+        key="direct_text_input"
+    )
+    job_title_input = st.text_input(
+        "채용 공고 제목 (선택사항)",
+        placeholder="예: AI/NLP 엔지니어 채용",
+        help="채용 공고의 제목을 입력하면 더 정확한 분석이 가능합니다.",
+        key="job_title_input"
+    )
+    url = ""
 
 job_text = ""
 job_title = ""
 
-# Automatically extract text and analyze when URL is entered
-if url:
-    with st.spinner("Extracting text from URL..."):
+# Process text input (URL or direct text)
+if url or direct_text:
+    if url:
         extracted_text, headings = extract_text_from_url(url)
         
         if extracted_text:
             job_text = extracted_text
             if headings:
                 job_title = headings[0] if headings else "No Title"
-            
-            # Auto-analyze if user profile is selected
-            if user_context:
-                with st.spinner("Performing matching analysis..."):
-                    # Calculate matching score
-                    # API 키를 매칭 계산에도 전달 (Additional Notes AI 분석용)
-                    match_score = calculate_match_score(user_context, job_text, st.session_state.get('openai_api_key'))
-                    
-                    # Generate feedback with user's API key
-                    feedback = generate_job_feedback(user_context, job_text, match_score, job_title, st.session_state.get('openai_api_key'))
-                
-                st.subheader("Analysis Results")
-                
-                # Display overall matching score and assessment
-                col1, col2 = st.columns([1, 2])
-                with col1:
-                    st.markdown("<div style='margin-bottom: 0;'><strong>Overall Match Score</strong></div>", unsafe_allow_html=True)
-                    st.markdown(f"<div style='font-size: 24px; font-weight: bold; margin-top: 0;'>{match_score['overall_score']}%</div>", unsafe_allow_html=True)
-                with col2:
-                    st.markdown("<div style='margin-bottom: 2px;'><strong>Overall Assessment</strong></div>", unsafe_allow_html=True)
-                    st.markdown(f"<div style='font-size: 14px; margin-top: 0;'>{feedback['overall_assessment']}</div>", unsafe_allow_html=True)
-                
-                # Display detailed analysis in one line with vertical bars
-                detailed_items = []
-                # 제외할 항목들
-                excluded_keys = ['language_requirement', 'education_match', 'additional_notes_match']
-                
-                for key, value in match_score['detailed_scores'].items():
-                    if key not in excluded_keys:
-                        # Format key names (remove underscores and capitalize)
-                        formatted_key = key.replace('_', ' ').title()
-                        detailed_items.append(f"<strong>{formatted_key}</strong>: {value:.2f}%")
-                
-                st.markdown(f"<p style='margin: 8px 0 2px 0; font-size: 14px;'> {' | '.join(detailed_items)}</p>", unsafe_allow_html=True)
-                
-                st.markdown("---")
-                
-                # Strengths, improvements, and recommendations in single column
-                st.markdown("<div style='margin-bottom: 2px;'><strong>Strengths</strong></div>", unsafe_allow_html=True)
-                st.markdown(f"<div style='font-size: 14px; margin-top: 0; margin-bottom: 8px;'>{feedback['strengths']}</div>", unsafe_allow_html=True)
-                
-                st.markdown("<div style='margin-bottom: 2px;'><strong>Areas for Improvement</strong></div>", unsafe_allow_html=True)
-                st.markdown(f"<div style='font-size: 14px; margin-top: 0; margin-bottom: 8px;'>{feedback['improvements']}</div>", unsafe_allow_html=True)
-                
-                st.markdown("<div style='margin-bottom: 2px;'><strong>Recommendations</strong></div>", unsafe_allow_html=True)
-                st.markdown(f"<div style='font-size: 14px; margin-top: 0; margin-bottom: 8px;'>{feedback['recommendations']}</div>", unsafe_allow_html=True)
-                
-                # Action Plan 표시 (있는 경우)
-                if feedback.get('action_plan'):
-                    st.markdown("<div style='margin-bottom: 2px;'><strong>Action Plan</strong></div>", unsafe_allow_html=True)
-                    st.markdown(f"<div style='font-size: 14px; margin-top: 0; margin-bottom: 8px;'>{feedback['action_plan']}</div>", unsafe_allow_html=True)
-                
-                # Show API key status
-                if not st.session_state.get('openai_api_key'):
-                    st.info("💡 **Tip**: Enter your OpenAI API key above to get more detailed AI-powered feedback!")
-            else:
-                st.warning("Please select a user profile from the sidebar for analysis.")
         else:
-            st.error("Text extraction failed.")
+            st.warning("⚠️ URL에서 텍스트를 추출할 수 없습니다. 직접 텍스트 입력을 사용해주세요.")
+            job_text = ""
+            job_title = ""
+    
+    elif direct_text:
+        job_text = direct_text
+        job_title = job_title_input if job_title_input else "직접 입력된 채용 공고"
+    
+    # Analyze if we have text and user profile
+    if job_text and user_context:
+        with st.spinner("Performing matching analysis..."):
+            # Calculate matching score
+            # API 키를 매칭 계산에도 전달 (Additional Notes AI 분석용)
+            match_score = calculate_match_score(user_context, job_text, st.session_state.get('openai_api_key'))
+            
+            # Generate feedback with user's API key
+            feedback = generate_job_feedback(user_context, job_text, match_score, job_title, st.session_state.get('openai_api_key'))
+        
+        st.subheader("Analysis Results")
+        
+        # Display overall matching score and assessment
+        col1, col2 = st.columns([1, 2])
+        with col1:
+            st.markdown("<div style='margin-bottom: 0;'><strong>Overall Match Score</strong></div>", unsafe_allow_html=True)
+            st.markdown(f"<div style='font-size: 24px; font-weight: bold; margin-top: 0;'>{match_score['overall_score']}%</div>", unsafe_allow_html=True)
+        with col2:
+            st.markdown("<div style='margin-bottom: 2px;'><strong>Overall Assessment</strong></div>", unsafe_allow_html=True)
+            st.markdown(f"<div style='font-size: 14px; margin-top: 0;'>{feedback['overall_assessment']}</div>", unsafe_allow_html=True)
+        
+        # Display detailed analysis in one line with vertical bars
+        detailed_items = []
+        # 제외할 항목들
+        excluded_keys = ['language_requirement', 'education_match', 'additional_notes_match']
+        
+        for key, value in match_score['detailed_scores'].items():
+            if key not in excluded_keys:
+                # Format key names (remove underscores and capitalize)
+                formatted_key = key.replace('_', ' ').title()
+                detailed_items.append(f"<strong>{formatted_key}</strong>: {value:.2f}%")
+        
+        st.markdown(f"<p style='margin: 8px 0 2px 0; font-size: 14px;'> {' | '.join(detailed_items)}</p>", unsafe_allow_html=True)
+        
+        st.markdown("---")
+        
+        # Strengths, improvements, and recommendations in single column
+        st.markdown("<div style='margin-bottom: 2px;'><strong>Strengths</strong></div>", unsafe_allow_html=True)
+        st.markdown(f"<div style='font-size: 14px; margin-top: 0; margin-bottom: 8px;'>{feedback['strengths']}</div>", unsafe_allow_html=True)
+        
+        st.markdown("<div style='margin-bottom: 2px;'><strong>Areas for Improvement</strong></div>", unsafe_allow_html=True)
+        st.markdown(f"<div style='font-size: 14px; margin-top: 0; margin-bottom: 8px;'>{feedback['improvements']}</div>", unsafe_allow_html=True)
+        
+        st.markdown("<div style='margin-bottom: 2px;'><strong>Recommendations</strong></div>", unsafe_allow_html=True)
+        st.markdown(f"<div style='font-size: 14px; margin-top: 0; margin-bottom: 8px;'>{feedback['recommendations']}</div>", unsafe_allow_html=True)
+        
+        # Action Plan 표시 (있는 경우)
+        if feedback.get('action_plan'):
+            st.markdown("<div style='margin-bottom: 2px;'><strong>Action Plan</strong></div>", unsafe_allow_html=True)
+            st.markdown(f"<div style='font-size: 14px; margin-top: 0; margin-bottom: 8px;'>{feedback['action_plan']}</div>", unsafe_allow_html=True)
+        
+        # Show API key status
+        if not st.session_state.get('openai_api_key'):
+            st.info("💡 **Tip**: Enter your OpenAI API key above to get more detailed AI-powered feedback!")
+    
+    elif job_text and not user_context:
+        st.warning("Please select a user profile from the sidebar for analysis.")
+    
+    elif not job_text:
+        st.info("채용 공고 URL을 입력하거나 직접 텍스트를 입력해주세요.")
 
-elif not url:
-    st.info("Please enter a job posting URL.") 
+else:
+    st.info("채용 공고 URL을 입력하거나 직접 텍스트를 입력해주세요.") 
