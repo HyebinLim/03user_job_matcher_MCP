@@ -51,6 +51,9 @@ profiles/
 *.json
 user_profiles.json
 
+# Project files (개인용)
+project_plan.md
+
 # User generated content
 user_data/
 
